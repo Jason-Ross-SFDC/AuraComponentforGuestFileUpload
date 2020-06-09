@@ -1,0 +1,36 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:isUrlAddressable"
+                access="global" 
+                controller="FormWithAttachmentController">
+    
+    <aura:attribute name="newForm" type="MyCustomObject__c" default="{ 'sobjectType': 'MyCustomObject__c',
+                                                                        'Name':'',
+                                                                        'OwnerId' : '0056g000000khIbAAI'}"/>
+    <aura:attribute name="documents" type="List" default="[]"/>
+    <aura:attribute name="accept" type="List" default="['.jpg', '.jpeg']"/>
+    <aura:attribute name="multiple" type="Boolean" default="true"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+                                                                         
+    <form class="slds-form--stacked">  
+
+        <lightning:input aura:id="myForm" 
+                        label="Please input some data and attach appropriate files" 
+                        name="Name"
+                        value="{!v.newForm.Name}"
+                        required="true"
+                        class="input"
+                        maxlength="80"/>
+
+            <lightning:fileUpload  name="fileUploader"
+                                label= "Demo Upload"
+                                multiple="{!v.multiple}"
+                                accept="{!v.accept}"
+                                disabled="{!v.disabled}"
+                                recordId="a046g00000ME88jAAD"
+                                onuploadfinished="{!c.handleUploadFinished }"/>
+            <lightning:button label="Submit"
+                class="slds-m-top--medium"
+                variant="brand"
+                onclick="{!c.submit}"/>
+        
+    </form>
+</aura:component>
